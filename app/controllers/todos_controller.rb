@@ -11,7 +11,14 @@ class TodosController < ApplicationController
     if todo.save
       redirect_to todos_path, notice: "Made yer todo"
     else
-      render inertia: "Todos/Index", props: {todos: current_user.todos, errors: todo.errors}
+      render inertia: "Todos/Index",
+             props: {todos: current_user.todos, errors: todo.errors}
     end
+  end
+
+  private
+
+  def todo_params
+    params.require(:todo).permit(:text)
   end
 end
